@@ -1,0 +1,14 @@
+.app-container {
+  .navbar {
+    background-color: $github-dark;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    height: 64px;
+    color: white;
+
+    .octicon {
+      margin-top: 6px;
+    }
+  }
+}

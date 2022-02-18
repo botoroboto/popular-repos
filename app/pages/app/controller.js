@@ -23,7 +23,7 @@ const preloadedDataScript = (data) => (
 </script>`);
 
 const render = (req, res) => {
-  const htmlFile = path.resolve(path.join(__dirname, '..', '..', '..', 'dist', 'static', 'demo.html'));
+  const htmlFile = path.resolve(path.join(__dirname, '..', '..', '..', 'dist', 'static', 'app.html'));
 
   res.preloadedData = {
     ...(res.preloadedData || {}),
@@ -47,7 +47,7 @@ const render = (req, res) => {
       .replace('{{children}}', appHtml)
       // Changes placeholder for preloaded data
       .replace('{{preloadedData}}', preloadedDataScript(res.preloadedData));
-    res.status(200).send(transformedHtml);
+    res.send(transformedHtml);
   });
 };
 

@@ -7,7 +7,7 @@ const { NODE_ENV } = process.env;
 
 module.exports = {
   entry: {
-    demo: '/app/client/demo.js',
+    app: '/app/client/app.js',
     error: '/app/client/error.js',
   },
   mode: NODE_ENV === 'production' ? 'production' : 'development',
@@ -41,18 +41,20 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: 'demo.html',
+      filename: 'app.html',
       template: './app/client/index.html',
-      chunks: ['demo'],
+      chunks: ['app'],
       publicPath: '/static',
+      favicon: './app/assets/favicon.png'
     }),
     new HtmlWebpackPlugin({
       filename: 'error.html',
       template: './app/client/index.html',
       chunks: ['error'],
       publicPath: '/static',
+      favicon: './app/assets/favicon.png'
     }),
-    new MiniCssExtractPlugin({}),
+    new MiniCssExtractPlugin(),
     new MomentLocalesPlugin({
       localesToKeep: ['en'],
     }),

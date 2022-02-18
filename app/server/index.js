@@ -10,10 +10,7 @@ router.use((req, _, next) => {
 });
 
 router.use('/static', express.static(path.join(__dirname, '..', '..', 'dist', 'static')));
-router.use('/', require('../pages/demo'));
-router.get('/some-error', (req, res, next) => {
-  next(new Error('asd'));
-});
+router.use('/', require('../pages/app'));
 
 router.use(errorHandlerRoute);
 // TODO - Add error handling middleware
