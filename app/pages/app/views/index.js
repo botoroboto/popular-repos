@@ -3,10 +3,10 @@ const React = require('react');
 const { Navbar } = require('./components/Navbar');
 const { PopularRepositories } = require('./components/PopularRepositories');
 
-const App = () => (
+const App = ({ popularRepos }) => (
   <div className="app-container">
     <Navbar />
-    <PopularRepositories />
+    <PopularRepositories initialFetch={popularRepos} />
   </div>
 );
 

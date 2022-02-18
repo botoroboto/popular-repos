@@ -2,24 +2,26 @@ const React = require('react');
 const axios = require('axios');
 const { useEffect, useState } = React;
 
-const PopularRepositories = () => {
+const PopularRepositories = ({ initialFetch }) => {
   const [requestError, setRequestError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [repositories, setRepositories] = useState([]);
+  const [repositories, setRepositories] = useState((initialFetch && Array.isArray(initialFetch.data)) ? initialFetch.data : []);
 
   useEffect(() => {
-    (async () => {
-      try {
-        setRequestError(null);
-        setLoading(true);
-        const { data } = await axios.get('/api/popular-repos/search');
-        setRepositories(data);
-      } catch (error) {
-        setRequestError(error);
-      } finally {
-        setLoading(false);
-      }
-    })();
+    if (!initialFetch || !Array.isArray(initialFetch.data)) {
+      (async () => {
+        try {
+          setRequestError(null);
+          setLoading(true);
+          const { data } = await axios.get('/api/popular-repos/search');
+          setRepositories(data);
+        } catch (error) {
+          setRequestError(error);
+        } finally {
+          setLoading(false);
+        }
+      })();
+    }
   }, []);
 
   return (
