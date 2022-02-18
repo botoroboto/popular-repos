@@ -6,7 +6,7 @@ const Navbar = () => (
     <a
       className='octicon'
       aria-label="Go to Github"
-      href="https://github.com"
+      href="https://github.com/"
       target="_blank"
       rel="noreferrer"
     >

@@ -30,7 +30,7 @@ const PopularRepositories = () => {
           <p><b style={{ marginRight: 4 }}>Repo Name:</b>{full_name}</p>
         </div>
       ))}
-      {loading && !requestError && (
+      {loading && !requestError && ( // TODO - Change for a spinner or something
         <div>Loading...</div>
       )}
       {requestError && !loading && (
