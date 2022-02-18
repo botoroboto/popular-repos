@@ -1,13 +1,13 @@
 const router = require('express').Router();
 
+const popularReposRouter = require('../app/pages/app/api');
+
 router.use((req, _, next) => {
   console.log('API request', req.path); // TODO - Beautify
   next();
 });
 
-router.get('ping', (_, res) => {
-  res.status(200).send('pong');
-});
+router.use('/popular-repos', popularReposRouter);
 
 // TODO - Could generalize
 // 404 handler

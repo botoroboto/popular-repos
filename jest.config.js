@@ -1,16 +1,29 @@
 module.exports = {
   projects: [
     {
-      displayName: 'App components',
+      displayName: 'APP components',
       testMatch: [
         '<rootDir>/app/**/*.spec.js',
+      ],
+      testPathIgnorePatterns: [
+        '<rootDir>/app/.*/services/.*/*.spec.js',
       ],
       testEnvironment: 'jsdom',
       setupFilesAfterEnv: [
         '<rootDir>/jest.env.js',
       ],
       verbose: true,
-    }
+    },
+    {
+      displayName: 'API tests',
+      testMatch: [
+        '<rootDir>/app/**/services/**/*.spec.js',
+      ],
+      testEnvironment: 'node',
+      setupFilesAfterEnv: [
+        '<rootDir>/jest.env.js',
+      ],
+    },
   ],
   collectCoverage: true,
   coveragePathIgnorePatterns: [
