@@ -1,0 +1,53 @@
+{
+  "name": "popular-repos",
+  "version": "0.0.1",
+  "description": "Web app that lists most popular repos",
+  "scripts": {
+    "build": "cross-env NODE_ENV=development webpack",
+    "watch": "cross-env NODE_ENV=development webpack --watch",
+    "start-dev": "cross-env NODE_ENV=development nodemon ./index.js --exec babel-node --presets=@babel/preset-env",
+    "start-watch": "concurrently \"npm run watch\" \"npm run start-dev\"",
+    "lint": "npm run lint:js",
+    "lint:js": "eslint ./**/*.js && npm run lint:scss",
+    "lint:scss": "sass-lint -v -q"
+  },
+  "author": "botoroboto",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.26.0",
+    "express": "^4.17.2",
+    "moment": "^2.29.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
+    "react-router": "^6.2.1",
+    "react-router-dom": "^6.2.1",
+    "serialize-javascript": "^6.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.2",
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.3",
+    "concurrently": "^7.0.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.6.0",
+    "eslint": "^8.9.0",
+    "eslint-plugin-jest-dom": "^4.0.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-testing-library": "^5.0.5",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.5.3",
+    "moment-locales-webpack-plugin": "^1.2.0",
+    "nodemon": "^2.0.15",
+    "sass": "^1.49.7",
+    "sass-lint": "^1.13.1",
+    "sass-loader": "^12.4.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2"
+  }
+}
