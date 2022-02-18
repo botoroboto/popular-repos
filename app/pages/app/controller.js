@@ -1,5 +1,6 @@
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
+const { StaticRouter } = require('react-router-dom/server');
 const serialize = require('serialize-javascript');
 const path = require('path');
 const fs = require('fs');
@@ -31,7 +32,9 @@ const render = (req, res) => {
   };
 
   const appHtml = ReactDOMServer.renderToStaticMarkup(
-    <App {...res.preloadedData} />
+    <StaticRouter location={req.path}>
+      <App {...res.preloadedData} />
+    </StaticRouter>
   );
 
   fs.readFile(htmlFile, 'utf-8', (error, htmlData) => {

@@ -1,6 +1,6 @@
 const React = require('react');
 
-const ErrorView = () => (
+const ErrorView = () => ( // TODO - We could add Github navbar in here too...
   <div>
     <h1>Whoops!</h1>
     <div>

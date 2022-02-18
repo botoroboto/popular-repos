@@ -10,5 +10,22 @@
     .octicon {
       margin-top: 6px;
     }
+
+    .tabs {
+      display: flex;
+      flex-direction: row;
+      margin-left: 16px;
+
+      a {
+        margin: 6px 4px 0;
+        padding: 16px;
+        cursor: pointer;
+      }
+
+      .selected,
+      a:hover {
+        border-bottom: solid 4px $github-highlight;
+      }
+    }
   }
 }

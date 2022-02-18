@@ -13,6 +13,5 @@ router.use('/static', express.static(path.join(__dirname, '..', '..', 'dist', 's
 router.use('/', require('../pages/app'));
 
 router.use(errorHandlerRoute);
-// TODO - Add error handling middleware
 
 module.exports = router;

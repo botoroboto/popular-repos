@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-// TODO - Could search for all files, and not be hardcoded (so it's easier to add scopes)
+// TODO - Could search for all files within the "config" folder (so it's easier to add scopes)
 const defaultConfig = require('./default');
 
 const test = require('./test');
