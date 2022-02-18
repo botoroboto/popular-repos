@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 module.exports = {
   port: 8443,
   appBasePath: '/',

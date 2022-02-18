@@ -28,7 +28,6 @@ module.exports = {
   collectCoverage: true,
   coveragePathIgnorePatterns: [
     '<rootDir>/jest.*',
-    '<rootDir>/tests/',
     '<rootDir>/config/',
     '<rootDir>/node_modules/',
   ],
