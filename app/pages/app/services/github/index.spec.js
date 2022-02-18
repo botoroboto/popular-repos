@@ -13,10 +13,10 @@ describe('GithubService', () => {
   });
 
   describe('searchRepositories', () => {
-    let language, date_filter;
+    let language, date;
     beforeEach(() => {
-      language = undefined;
-      date_filter = '2022-02-11';
+      language = null;
+      date = '2022-02-11';
     });
 
     test('should fetch repositories from Github API\'s endpoint', async () => {
@@ -27,10 +27,10 @@ describe('GithubService', () => {
           sort: 'stars',
           order: 'desc',
           per_page: 25,
-          q: `language:${language} created:>${date_filter}`,
+          q: `language:${language} created:>${date}`,
         })
         .reply(200, response);
-      const data = await service.searchRepositories();
+      const data = await service.searchRepositories({ language, date });
 
       expect(data).toMatchObject(response);
     });

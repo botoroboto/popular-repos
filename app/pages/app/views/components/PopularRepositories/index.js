@@ -12,8 +12,8 @@ const PopularRepositories = () => {
       try {
         setRequestError(null);
         setLoading(true);
-        const { data } = await axios.get('https://api.github.com/search/repositories?q=created:%3E2022-02-05&sort=stars&order=desc');
-        setRepositories(data.items);
+        const { data } = await axios.get('/api/popular-repos/search');
+        setRepositories(data);
       } catch (error) {
         setRequestError(error);
       } finally {
