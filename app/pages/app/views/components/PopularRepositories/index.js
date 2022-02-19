@@ -46,7 +46,7 @@ const PopularRepositories = ({ initialFetch }) => {
   const MyStarredTab = () => ( // TODO - Refactor into separate file
     <h3>My Starred repositories</h3>
   );
-  
+
   return (
     <div className="popular-repositories">
       <Routes>
@@ -54,7 +54,6 @@ const PopularRepositories = ({ initialFetch }) => {
         <Route exact path="/my-starred" element={<MyStarredTab />} />
         <Route path="*" element={<Navigate to="/explore" />} />
       </Routes>
-      
     </div>
   );
 };

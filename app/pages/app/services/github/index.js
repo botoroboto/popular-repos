@@ -2,14 +2,14 @@ const axios = require('axios');
 
 const { app } = require('../../../../../config');
 
-const { baseURL, timeout } = (app && app.services && app.services.github) || {};
+const { baseURL, timeout } = app.services.github;
 
 class GithubService {
   constructor() {
     // TODO - Could have a common restclient, so it logs whenever you make a req
     this.restclient = axios.create({
-      baseURL: baseURL || '/',
-      timeout: timeout || 3000,
+      baseURL: baseURL,
+      timeout: timeout,
     });
   }
 

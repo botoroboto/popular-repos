@@ -1,9 +1,3 @@
-/* TODO 
-  - Add babel
-  - Add lint
-  - Add jest.setup and config
-*/
-
 const config = require('./config');
 const apiRouter = require('./api');
 const appRouter = require('./app/server');

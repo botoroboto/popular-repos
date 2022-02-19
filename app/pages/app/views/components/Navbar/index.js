@@ -5,15 +5,24 @@ const { Octicon } = require('../../../../../assets/Octicon');
 const NavbarLink = ({ path, children }) => {
   const navigate = useNavigate();
   const { pathname: currentPath } = useLocation();
-  
+
   const navigateTo = (path) => () => {
     navigate(path);
   };
 
+  const onEnterHandler = (callback) => ({ charCode }) => {
+    if (callback && charCode === 13) {
+      callback();
+    }
+  };
+
   return (
     <a
-      className={currentPath === path ? 'selected' : ''}
+      tabIndex={0}
+      role='button'
       onClick={navigateTo(path)}
+      onKeyPress={onEnterHandler(navigateTo(path))}
+      className={currentPath === path ? 'selected' : ''}
     >
       {children}
     </a>
