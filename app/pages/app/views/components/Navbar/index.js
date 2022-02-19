@@ -11,7 +11,7 @@ const NavbarLink = ({ path, children }) => {
   };
 
   const onEnterHandler = (callback) => ({ charCode }) => {
-    if (callback && charCode === 13) {
+    if (charCode === 13) {
       callback();
     }
   };
