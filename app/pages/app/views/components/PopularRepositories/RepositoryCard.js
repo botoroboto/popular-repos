@@ -8,25 +8,27 @@ const RepositoryCard = ({ id, repo_name, repo_url, owner_name, owner_url, descri
   <Card key={id}>
     <CardHeader>
       <h2 className="repository-title">
-        <a className='secondary' href={owner_url} target="_blank" rel="noreferrer">
+        <a className="secondary" href={owner_url} target="_blank" rel="noreferrer">
           {owner_name}
         </a>
         /
-        <a className='primary' href={repo_url} target="_blank" rel="noreferrer">
+        <a className="primary" href={repo_url} target="_blank" rel="noreferrer">
           {repo_name}
         </a>
       </h2>
       {/* TODO - We could do some sort of "gauge" to show popularity */}
-      <button className='repository-star-button' onClick={() => console.log(`STAR ${id}`)}>
+      <button className="repository-star-button" onClick={() => console.log(`STAR ${id}`)}>
         <AiOutlineStar size={20} />
-        <span className='star-counter'>
+        <span className="star-counter">
           {`Star ${star_count}`}
         </span>
       </button>
     </CardHeader>
-    <CardBody>
-      <p>{description}</p>
-    </CardBody>
+    {description && (
+      <CardBody>
+        <p>{description}</p>
+      </CardBody>
+    )}
     <CardFooter>
       <span style={{ marginRight: 24 }}>
         {`Updated ${moment(last_updated).fromNow()}`}

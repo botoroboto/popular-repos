@@ -32,7 +32,7 @@ const NavbarLink = ({ path, children }) => {
 const Navbar = () => (
   <div className="navbar">
     <a
-      className='octicon'
+      className="octicon"
       aria-label="Go to Github"
       href="https://github.com/"
       target="_blank"
