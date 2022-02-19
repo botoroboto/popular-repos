@@ -28,7 +28,7 @@ const ExploreTab = ({ initialFetch }) => {
 
   return (
     <div className="explore-tab">
-      <h1 className="title">Showing the most popular repositories of last week</h1>
+      <h1 className="title">Showing the most popular repositories of this week</h1>
       {!loading && !requestError && (
         <Repositories repositories={repositories} />
       )}

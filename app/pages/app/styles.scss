@@ -1,8 +1,6 @@
-$github-dark: #24292f;
-$github-highlight: #439aff;
-
-@import './views/components/Navbar/index';
-@import './views/components/PopularRepositories/index';
+@import '../../styles/commons.scss';
+@import './views/components/Navbar/index.scss';
+@import './views/components/PopularRepositories/index.scss';
 
 body {
   margin: 0;

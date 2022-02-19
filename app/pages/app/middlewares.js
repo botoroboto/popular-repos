@@ -9,8 +9,8 @@ const fetchInitialData = (_, res, next) => {
     const popularRepos = { data: null, error: null };
 
     service.searchRepositories({ date })
-      .then(({ items }) => {
-        popularRepos.data = items;
+      .then((data) => {
+        popularRepos.data = data;
       })
       .catch((error) => {
         popularRepos.error = { message: error.message };

@@ -3,7 +3,7 @@ const { Routes, Route, Navigate } = require('react-router-dom');
 const { ExploreTab } = require('./ExploreTab');
 const { MyStarredTab } = require('./MyStarredTab');
 
-const PopularRepositories = ({ initialFetch }) => (
+const PopularRepositories = ({ initialFetch }) => ( // TODO - We could "clean" initialFetch after first render
   <div className="popular-repositories">
     <Routes>
       <Route

@@ -60,4 +60,6 @@ module.exports = {
     }),
   ],
   // TODO - Could implement "Hot reload" or "Fast refresh" plugin
+  // TODO - Could implement plugins for minimizing production bundles
+  // and separating in chunks (like vendor for node_modules)
 };

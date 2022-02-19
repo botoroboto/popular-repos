@@ -35,7 +35,7 @@ describe('Navbar component', () => {
     screen.getByTestId('octicon');
   });
 
-  test('should render Explore tab and navigate when clicked', async () => {
+  test('should render Explore tab and navigate when clicked', () => {
     render(<Navbar />, { wrapper: Contextualized() });
 
     expect(mockNavigateFunction).not.toHaveBeenCalled();
@@ -44,7 +44,7 @@ describe('Navbar component', () => {
     expect(mockNavigateFunction).toHaveBeenCalledWith('/explore');
   });
 
-  test('should render Explore tab and navigate when pressing enter while focused', async () => {
+  test('should render Explore tab and navigate when pressing enter while focused', () => {
     render(<Navbar />, { wrapper: Contextualized() });
 
     expect(mockNavigateFunction).not.toHaveBeenCalled();
@@ -53,7 +53,7 @@ describe('Navbar component', () => {
     expect(mockNavigateFunction).toHaveBeenCalledWith('/explore');
   });
 
-  test('should render My Starred tab and navigate when clicked', async () => {
+  test('should render My Starred tab and navigate when clicked', () => {
     render(<Navbar />, { wrapper: Contextualized() });
 
     expect(mockNavigateFunction).not.toHaveBeenCalled();
@@ -62,7 +62,7 @@ describe('Navbar component', () => {
     expect(mockNavigateFunction).toHaveBeenCalledWith('/my-starred');
   });
 
-  test('should render My Starred tab and navigate when pressing enter while focused', async () => {
+  test('should render My Starred tab and navigate when pressing enter while focused', () => {
     render(<Navbar />, { wrapper: Contextualized() });
 
     expect(mockNavigateFunction).not.toHaveBeenCalled();

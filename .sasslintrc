@@ -34,7 +34,7 @@
       1,
       {
         "leading-underscore": false,
-        "filename-extension": false
+        "filename-extension": true
       }
     ],
     "declarations-before-nesting": 2,

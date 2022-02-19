@@ -1,0 +1,43 @@
+.card {
+  width: 70%;
+  min-width: 420px;
+  max-width: 576px;
+  margin: 24px 0;
+  display: flex;
+  flex-direction: column;
+  background-color: $github-lighter;
+  border: rgba($github-light, 0.4) solid 1px;
+  border-radius: 8px;
+  box-shadow: 0 8px 14px -3px rgba($github-light, 0.4);
+  transition: box-shadow 0.2s ease-out;
+
+  &-header {
+    border-radius: 8px 8px 0 0;
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $github-lighter;
+    border-bottom: rgba($github-light, 0.4) solid 1px;
+  }
+
+  &-body {
+    padding: 8px 16px;
+    background-color: white;
+  }
+
+  &-footer {
+    border-top: rgba($github-light, 0.4) solid 1px;
+    border-radius: 0 0 8px 8px;
+    padding: 8px 16px;
+    background-color: white;
+    color: $github-light-font;
+    font-size: 14px;
+  }
+}
+
+.card:hover {
+  border: rgba($github-light, 0.3) solid 1px;
+  box-shadow: 0 8px 14px -3px rgba($github-highlight, 0.2);
+}

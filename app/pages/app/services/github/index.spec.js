@@ -13,14 +13,45 @@ describe('GithubService', () => {
   });
 
   describe('searchRepositories', () => {
-    let language, date;
+    let language;
+    let date;
+    let apiResponse;
+
     beforeEach(() => {
       language = null;
       date = '2022-02-11';
+      apiResponse = {
+        items: [
+          {
+            id: 458907326,
+            name: 'melody',
+            owner: {
+              login: 'yoav-lavi',
+              html_url: 'https://github.com/yoav-lavi',
+            },
+            html_url: 'https://github.com/yoav-lavi/melody',
+            description: 'Melody is a language that compiles to regular expressions and aims to be more easily readable and maintainable',
+            stargazers_count: 123,
+            language: 'Javascript',
+            updated_at: '2022-02-19T22:26:39Z',
+          },
+        ],
+      };
     });
 
     test('should fetch repositories from Github API\'s endpoint', async () => {
-      const response = { someAttribute: 'someData' };
+      const repository = apiResponse.items[0];
+      const response = {
+        repo_name: repository.name,
+        repo_url: repository.html_url,
+        owner_name: repository.owner.login,
+        owner_url: repository.owner.html_url,
+        star_count: repository.stargazers_count,
+        last_updated: repository.updated_at,
+        description: repository.description,
+        language: repository.language,
+        id: repository.id,
+      };
       nock(baseURL)
         .get('/search/repositories')
         .query({
@@ -29,10 +60,10 @@ describe('GithubService', () => {
           per_page: 25,
           q: `language:${language} created:>${date}`,
         })
-        .reply(200, response);
+        .reply(200, apiResponse);
       const data = await service.searchRepositories({ language, date });
 
-      expect(data).toMatchObject(response);
+      expect(data[0]).toMatchObject(response);
     });
 
     // TODO - Add tests for params

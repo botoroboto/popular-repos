@@ -4,7 +4,7 @@ const { render, screen } = require('@testing-library/react');
 const { MyStarredTab } = require('.');
 
 describe('MyStarredTab component', () => {
-  test('should render title', async () => {
+  test('should render title', () => {
     render(<MyStarredTab />);
 
     screen.getByText(/My Starred repositories/);

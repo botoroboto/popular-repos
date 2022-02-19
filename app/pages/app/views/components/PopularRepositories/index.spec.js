@@ -24,23 +24,23 @@ describe('PopularRepositories component', () => {
     };
   });
 
-  test('should render Explore tab', async () => {
+  test('should render Explore tab', () => {
     render(<PopularRepositories {...baseProps} />, { wrapper: Contextualized() });
 
     screen.getByText(/Showing the most popular/);
   });
 
-  test('should render My Starred tab', async () => {
+  test('should render My Starred tab', () => {
     render(<PopularRepositories {...baseProps} />, { wrapper: Contextualized({
       routerProps: {
         initialEntries: ['/my-starred'],
       },
     })});
 
-    await screen.findByText(/My Starred repositories/);
+    screen.getByText(/My Starred repositories/);
   });
 
-  test('should redirect to Explore tab if pathname is not found', async () => {
+  test('should redirect to Explore tab if pathname is not found', () => {
     render(<PopularRepositories {...baseProps} />, { wrapper: Contextualized({
       routerProps: {
         initialEntries: ['/some-pathname'],
