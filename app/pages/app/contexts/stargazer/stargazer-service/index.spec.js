@@ -181,6 +181,14 @@ describe('StargazerService', () => {
   });
 
   describe('fetchStarred', () => {
+    let offset;
+    let limit;
+
+    beforeEach(() => {
+      offset = 0;
+      limit = 2;
+    });
+
     test('should return empty data array if isServerSide', async () => {
       const expectedResponse = {
         data: [],
@@ -214,11 +222,11 @@ describe('StargazerService', () => {
 
       nock(baseURL)
         .get('/my-starred/repositories')
-        .query({ repositories: `${someRepo},${someOtherRepo}` })
+        .query({ repositories: `${someRepo},${someOtherRepo}`, offset, limit })
         .reply(200, apiResponse);
 
       expect(mockGetItem).not.toHaveBeenCalled();
-      const starredRepositories = await service.fetchStarred();
+      const starredRepositories = await service.fetchStarred(offset, limit);
       expect(mockGetItem).toHaveBeenCalledWith(user);
       expect(starredRepositories.error).toBeNull();
       expect(starredRepositories.data).toHaveLength(2);
@@ -238,11 +246,11 @@ describe('StargazerService', () => {
 
       nock(baseURL)
         .get('/my-starred/repositories')
-        .query({ repositories: `${someRepo}` })
+        .query({ repositories: `${someRepo}`, offset, limit })
         .reply(400);
 
       expect(mockGetItem).not.toHaveBeenCalled();
-      const starredRepositories = await service.fetchStarred();
+      const starredRepositories = await service.fetchStarred(offset, limit);
       expect(mockGetItem).toHaveBeenCalledWith(user);
       expect(starredRepositories.data).toBeNull();
       expect(starredRepositories.error).toMatchObject(new Error('Request failed with status code 400'));
