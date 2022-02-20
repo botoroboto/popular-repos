@@ -18,7 +18,10 @@ describe('PopularRepositories component', () => {
 
   beforeEach(() => {
     baseProps = {
-      initialFetch: {
+      popularRepos: {
+        data: [],
+      },
+      starredRepos: {
         data: [],
       },
     };
