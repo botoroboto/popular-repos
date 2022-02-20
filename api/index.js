@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
-const popularReposRouter = require('../app/pages/app/api');
+const popularReposRouter = require('../app/pages/app/api/popular-repos');
+const starredReposRouter = require('../app/pages/app/api/my-starred-repos');
 
 router.use((req, _, next) => {
   console.log('API request', req.path); // TODO - Beautify
@@ -8,6 +9,7 @@ router.use((req, _, next) => {
 });
 
 router.use('/popular-repos', popularReposRouter);
+router.use('/my-starred', starredReposRouter);
 
 // TODO - Could generalize
 // 404 handler

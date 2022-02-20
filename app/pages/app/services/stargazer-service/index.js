@@ -1,63 +1,91 @@
-// If using this on the server, return a dummy object
-const StargazerService = (user) => typeof window !== 'undefined' ? ({
-  getStarred: () => {
+// TODO - Add tests
+const axios = require('axios');
+
+const INVALID_JSON = 'INVALID_JSON';
+
+const parserHelper = (value) => {
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    return INVALID_JSON;
+  }
+};
+
+class StargazerService {
+  constructor(user) {
+    this.user = user;
+    this.isServerSide = typeof window === 'undefined';
+  }
+
+  getStarred() {
+    // If using this on the server, return a dummy object
+    if (this.isServerSide) {
+      return [];
+    }
+    const userData = parserHelper(localStorage.getItem(this.user));
+    if (userData === INVALID_JSON) {
+      console.warn('Could not find starred repositories.');
+      // Set default response when starred repos do not exist
+      return [];
+    }
+    return (userData && userData.starred) || [];
+  }
+
+  async fetchStarred() {
     try {
-      const userData = JSON.parse(localStorage.getItem(user));
-      let repositories = (userData && userData.starred) || [];
-      // TODO - Develop API endpoint
-      // if (repositories.length !== 0) {
-      //   repositories = await axios.get('/api/my-starred/repositories', { params: { repositories: repositories.join(',') } });
-      // }
+      let repositories = this.getStarred();
+      if (repositories.length !== 0) {
+        const { data } = await axios.get('/api/my-starred/repositories', { params: { repositories: repositories.join(',') } });
+        repositories = data;
+      }
       return {
         error: null,
         data: repositories,
       };
     } catch (error) {
-      console.error('There was an error while trying to get starred repositories.');
+      console.error('There was an error while trying to fetch starred repositories.', { error });
       return {
         error,
         data: null,
       };
     }
-  },
-  toggleStarred: (id) => {
-    try {
-      let userData = JSON.parse(localStorage.getItem(user));
-      if (!userData || !Array.isArray(userData.starred)) {
-        console.warn('Could not find starred repositories, will create a new localStorage entry.');
-        userData = {
-          starred: [id],
-        };
-      } else if (userData.starred.find(id)) {
-        console.warn(`Deleting repository with id: ${id}.`);
-        userData.starred = userData.starred.filter(starredRepo => starredRepo.id !== id);
-      } else {
-        console.warn(`Adding new repository with id: ${id}.`);
-        userData.starred.push(id);
-      }
-      localStorage.setItem(user, JSON.stringify(userData));
+  }
+
+  toggleStarred(id) {
+    // If using this on the server, return a dummy object
+    if (this.isServerSide) {
       return {
         error: null,
-        data: (userData && userData.starred) || [],
+        data: [],
+      };
+    }
+    try {
+      const repositories = this.getStarred();
+      const userData = { starred: [] };
+      if (!Array.isArray(repositories) || repositories.length === 0) {
+        console.warn('Could not find starred repositories, will create a new localStorage entry.');
+        userData.starred.push(id);
+      } else if (repositories.find(starredRepo => starredRepo === id)) {
+        console.warn(`Deleting repository with id: ${id}.`);
+        userData.starred = repositories.filter(starredRepo => starredRepo !== id);
+      } else {
+        console.warn(`Adding new repository with id: ${id}.`);
+        userData.starred = [...repositories, id];
+      }
+      localStorage.setItem(this.user, JSON.stringify(userData));
+      return {
+        error: null,
+        data: userData.starred,
       };
     } catch (error) {
-      console.error(`There was an error while trying to toggle the repository with id: ${id}.`);
+      console.error(`There was an error while trying to toggle the repository with id: ${id}.`, { error });
       return {
         error,
         data: null,
       };
     }
-  },
-}) : {
-  getStarred: () => ({
-    error: null,
-    data: [],
-  }),
-  toggleStarred: () => ({
-    error: null,
-    data: [],
-  })
-};
+  }
+}
 
 module.exports = {
   StargazerService,

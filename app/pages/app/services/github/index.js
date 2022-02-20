@@ -13,15 +13,8 @@ class GithubService {
     });
   }
 
-  async searchRepositories({ date, language }) {
-    const url = '/search/repositories';
-    const params = {
-      sort: 'stars',
-      order: 'desc',
-      per_page: 25,
-    };
-    const { data } = await this.restclient.get(`${url}?q=${encodeURIComponent(`language:${language} created:>${date}`)}`, { params });
-    const transformedData = data.items.map(( repository ) => ({
+  _transformRepository(repository) {
+    return ({
       repo_name: repository.name,
       repo_url: repository.html_url,
       owner_name: repository.owner.login,
@@ -31,8 +24,31 @@ class GithubService {
       description: repository.description,
       language: repository.language,
       id: repository.id,
-    }));
-    return transformedData;
+    });
+  }
+
+  async searchRepositories({ date, language }) {
+    const url = '/search/repositories';
+    const params = {
+      sort: 'stars',
+      order: 'desc',
+      per_page: 25,
+    };
+    const { data } = await this.restclient.get(`${url}?q=${encodeURIComponent(`language:${language} created:>${date}`)}`, { params });
+    return data.items.map(this._transformRepository);
+  }
+
+  async getRepository({ id }) {
+    const url = `/repositories/${id}`;
+    const { data } = await this.restclient.get(url);
+    return this._transformRepository(data);
+  }
+
+  async getRepositories({ repositories }) {
+    const data = await Promise.all(repositories.map(id => (
+      this.getRepository({ id })
+    )));
+    return data;
   }
 }
 

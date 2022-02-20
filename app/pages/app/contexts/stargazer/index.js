@@ -6,8 +6,7 @@ const useStargazerContext = () => {
   const { stargazerService } = useContext(StargazerContext);
 
   return {
-    getStarred: stargazerService.getStarred,
-    toggleStarred: stargazerService.toggleStarred,
+    stargazerService,
   };
 };
 

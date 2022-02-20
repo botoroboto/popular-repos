@@ -6,7 +6,7 @@ const { useStargazerContext } = require('../../../../contexts/stargazer');
 const { useState, useEffect } = React;
 
 const MyStarredTab = ({ initialFetch }) => {
-  const { getStarred } = useStargazerContext();
+  const { stargazerService } = useStargazerContext(); // TODO - Add tests with context
   const [requestError, setRequestError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [repositories, setRepositories] = useState((initialFetch && Array.isArray(initialFetch.data)) ? initialFetch.data : []);
@@ -17,7 +17,7 @@ const MyStarredTab = ({ initialFetch }) => {
         try {
           setRequestError(null);
           setLoading(true);
-          const { data, error } = await getStarred();
+          const { data, error } = await stargazerService.fetchStarred();
           setRepositories(data);
           setRequestError(error);
         } catch (error) {
