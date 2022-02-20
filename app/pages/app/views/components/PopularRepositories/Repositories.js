@@ -9,7 +9,7 @@ const { useStargazerContext } = require('../../../contexts/stargazer');
 const { useState } = React;
 
 const RepositoryCard = ({ id, repo_name, repo_url, owner_name, owner_url, description, language, last_updated, star_count }) => {
-  const { stargazerService } = useStargazerContext(); // TODO - Add tests with context
+  const { stargazerService } = useStargazerContext();
   const [isStarred, setIsStarred] = useState(stargazerService.getStarred().find(starredRepoId => starredRepoId === id));
 
   const handleStar = () => {
@@ -44,7 +44,11 @@ const RepositoryCard = ({ id, repo_name, repo_url, owner_name, owner_url, descri
           onClick={handleStar}
           onKeyPress={onEnterHandler(handleStar)}
         >
-          {isStarred ? <AiFillStar size={20} /> : <AiOutlineStar size={20} />}
+          {isStarred ? (
+            <AiFillStar data-testid="filled-star" size={20} />
+          ) : (
+            <AiOutlineStar data-testid="outline-star" size={20} />
+          )}
           <span className="star-counter">
             {`Star ${star_count}` /* TODO - Could shorten this number */}
           </span>

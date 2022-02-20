@@ -4,7 +4,7 @@ const { Routes, Route, Navigate } = require('react-router-dom');
 const { ExploreTab } = require('./ExploreTab');
 const { MyStarredTab } = require('./MyStarredTab');
 const { StargazerContext } = require('../../../contexts/stargazer');
-const { StargazerService } = require('../../../services/stargazer-service');
+const { StargazerService } = require('../../../contexts/stargazer/stargazer-service');
 
 const { useState } = React;
 

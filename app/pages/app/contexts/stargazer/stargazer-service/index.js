@@ -1,4 +1,4 @@
-// TODO - Add tests
+// TODO - This folder could be moved to "services" folder if it no longer uses localStorage
 const axios = require('axios');
 
 const INVALID_JSON = 'INVALID_JSON';
@@ -31,7 +31,7 @@ class StargazerService {
     return (userData && userData.starred) || [];
   }
 
-  async fetchStarred() {
+  async fetchStarred() { // TODO - Add pagination
     try {
       let repositories = this.getStarred();
       if (repositories.length !== 0) {

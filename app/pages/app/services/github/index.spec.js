@@ -112,4 +112,44 @@ describe('GithubService', () => {
       expect(data[0]).toMatchObject(response);
     });
   });
+
+  describe('getRepository', () => {
+    let apiResponse;
+
+    beforeEach(() => {
+      apiResponse = {
+        id: 458907326,
+        name: 'melody',
+        owner: {
+          login: 'yoav-lavi',
+          html_url: 'https://github.com/yoav-lavi',
+        },
+        html_url: 'https://github.com/yoav-lavi/melody',
+        description: 'Melody is a language that compiles to regular expressions and aims to be more easily readable and maintainable',
+        stargazers_count: 123,
+        language: 'Javascript',
+        updated_at: '2022-02-19T22:26:39Z',
+      };
+    });
+
+    test('should get repository from Github API\'s endpoint', async () => {
+      const response = {
+        repo_name: apiResponse.name,
+        repo_url: apiResponse.html_url,
+        owner_name: apiResponse.owner.login,
+        owner_url: apiResponse.owner.html_url,
+        star_count: apiResponse.stargazers_count,
+        last_updated: apiResponse.updated_at,
+        description: apiResponse.description,
+        language: apiResponse.language,
+        id: apiResponse.id,
+      };
+      nock(baseURL)
+        .get(`/repositories/${apiResponse.id}`)
+        .reply(200, apiResponse);
+      const data = await service.getRepository({ id: apiResponse.id });
+
+      expect(data).toMatchObject(response);
+    });
+  });
 });
