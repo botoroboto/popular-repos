@@ -4,7 +4,7 @@ const { GithubService } = require('../services/github');
 
 router.get('/repositories', async (req, res, next) => {
   try {
-    const { repositories, offset = 0, limit = 6 } = req.query || {};
+    const { repositories, offset = 0, limit = 5 } = req.query || {};
     if (!repositories) {
       const error = new Error('Bad request. Parameter "repositories" is mandatory.');
       error.status = 400;

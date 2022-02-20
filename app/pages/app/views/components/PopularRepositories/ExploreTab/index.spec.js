@@ -1,6 +1,6 @@
 const React = require('react');
 const nock = require('nock');
-const { render, screen } = require('@testing-library/react');
+const { render, screen, fireEvent } = require('@testing-library/react');
 
 const { ExploreTab } = require('.');
 const { StargazerContext } = require('../../../../contexts/stargazer');
@@ -68,7 +68,6 @@ describe('ExploreTab component', () => {
   });
 
   test('should show error if request fails', async () => {
-    nock.cleanAll();
     nock(baseURL)
       .get('/popular-repos/search')
       .once()
@@ -80,7 +79,6 @@ describe('ExploreTab component', () => {
   });
 
   test('should not make request if initialFetch has data', async () => {
-    nock.cleanAll();
     baseProps.initialFetch = {
       data: [someRepo],
     };
@@ -103,5 +101,23 @@ describe('ExploreTab component', () => {
 
     screen.getByText(/Showing the most popular/);
     screen.getByText(/We could not find any results/);
+  });
+
+  test('should make request with language filter after pressing dropdown', async () => {
+    baseProps.initialFetch = {
+      data: [],
+    };
+    nock(baseURL)
+      .get('/popular-repos/search')
+      .query({ language: 'javascript' })
+      .once()
+      .reply(200, [someRepo]);
+    render(<ExploreTab {...baseProps} />, { wrapper: Contextualized() });
+
+    screen.getByText(/Showing the most popular/);
+    fireEvent.click(screen.getByText('Select a language'));
+
+    fireEvent.click(screen.getByText('Javascript'));
+    await screen.findByText(someRepo.owner_name);
   });
 });

@@ -10,7 +10,7 @@ jest.mock('moment', () => () => ({
 }));
 
 describe('MyStarredTab component', () => {
-  const limit = 6;
+  const limit = 5;
   let someRepo;
   let baseProps;
   const defaultStargazerService = {

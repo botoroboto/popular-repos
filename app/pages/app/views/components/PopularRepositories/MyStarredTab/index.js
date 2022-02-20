@@ -11,7 +11,7 @@ const MyStarredTab = ({ initialFetch }) => {
   const [requestError, setRequestError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [repositories, setRepositories] = useState((initialFetch && Array.isArray(initialFetch.data)) ? initialFetch.data : []);
-  const [limit] = useState(6);
+  const [limit] = useState(5);
   const [totalItems, setTotalItems] = useState((initialFetch && initialFetch.total) || 0);
   const [currentPage, setCurrentPage] = useState(1);
   const [offset, setOffset] = useState(0);

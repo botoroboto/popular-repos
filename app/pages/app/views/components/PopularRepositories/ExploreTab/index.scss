@@ -1,4 +1,11 @@
 .explore-tab {
+  .heading {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .repositories {
     display: flex;
     flex-direction: column;

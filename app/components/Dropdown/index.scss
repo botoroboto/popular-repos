@@ -1,0 +1,50 @@
+.dropdown-container {
+  position: relative;
+
+  .dropdown-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &-title {
+      cursor: pointer;
+    }
+
+    .clear-button {
+      cursor: pointer;
+      margin-left: 12px;
+      margin-top: 1px;
+      fill: $github-light-font;
+    }
+  }
+
+  .dropdown-list-container {
+    position: absolute;
+    right: 16px;
+    margin-top: 2px;
+    border: rgba($github-light, 0.6) solid 1px;
+    border-radius: 8px;
+    min-width: 100px;
+
+    .dropdown-list {
+      cursor: pointer;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      .dropdown-list-item {
+        margin: 4px 0;
+        padding: 0 12px;
+      }
+
+      .dropdown-list-item + .dropdown-list-item {
+        border-top: rgba($github-light, 0.6) solid 1px;
+      }
+
+      .dropdown-list-item:hover,
+      .dropdown-list-item-selected {
+        color: $github-highlight;
+      }
+    }
+  }
+}

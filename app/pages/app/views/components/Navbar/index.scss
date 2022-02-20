@@ -1,14 +1,23 @@
 .app-container {
   .navbar {
+    position: sticky;
+    top: 0;
     background-color: $github-dark;
     padding: 0 24px;
     display: flex;
     align-items: center;
     height: 64px;
     color: white;
+    z-index: 2;
 
     .octicon {
       margin-top: 6px;
+
+      svg:hover {
+        path {
+          fill: #d9dcdf;
+        }
+      }
     }
 
     .tabs {
