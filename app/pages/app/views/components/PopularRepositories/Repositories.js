@@ -20,7 +20,7 @@ const RepositoryCard = ({ id, repo_name, repo_url, owner_name, owner_url, descri
       <button className="repository-star-button" onClick={() => console.log(`STAR ${id}`)}>
         <AiOutlineStar size={20} />
         <span className="star-counter">
-          {`Star ${star_count}`}
+          {`Star ${star_count}` /* TODO - Could shorten this number */}
         </span>
       </button>
     </CardHeader>
@@ -38,6 +38,17 @@ const RepositoryCard = ({ id, repo_name, repo_url, owner_name, owner_url, descri
   </Card>
 );
 
+const Repositories = ({ repositories }) => (
+  Array.isArray(repositories) && repositories.length > 0 ? (
+    <div className="repositories">
+      {repositories.map(RepositoryCard)}
+    </div>
+  ) : (
+    <div>We could not find any results.</div>
+  )
+);
+
 module.exports = {
+  Repositories,
   RepositoryCard,
 };

@@ -1,6 +1,6 @@
 const React = require('react');
 const axios = require('axios');
-const { Repositories } = require('./Repositories');
+const { Repositories } = require('../Repositories');
 
 const { useEffect, useState } = React;
 
