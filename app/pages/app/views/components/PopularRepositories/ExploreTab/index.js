@@ -35,7 +35,7 @@ const ExploreTab = ({ initialFetch }) => {
       {loading && !requestError && ( // TODO - Change for a better indicator (skeleton, spinner, etc)
         <div>Loading...</div>
       )}
-      {requestError && !loading && (
+      {requestError && !loading && ( // TODO - Beautify + retry functionality
         <div>Whoops! Error: {requestError.message || 'Internal server error'}</div>
       )}
     </div>

@@ -67,8 +67,6 @@ describe('ExploreTab component', () => {
     expect(screen.queryByText(/Loading/)).toBeNull();
   });
 
-  // TODO - Add tests for starring functionality
-
   test('should show error if request fails', async () => {
     nock.cleanAll();
     nock(baseURL)

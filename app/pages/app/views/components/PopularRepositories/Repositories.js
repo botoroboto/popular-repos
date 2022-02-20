@@ -5,12 +5,18 @@ const { AiOutlineStar, AiFillStar } = require('react-icons/ai');
 
 const { Card, CardHeader, CardBody, CardFooter } = require('../../../../../components/Card');
 const { useStargazerContext } = require('../../../contexts/stargazer');
+const { useEffect } = require('react');
 
 const { useState } = React;
 
 const RepositoryCard = ({ id, repo_name, repo_url, owner_name, owner_url, description, language, last_updated, star_count }) => {
   const { stargazerService } = useStargazerContext();
-  const [isStarred, setIsStarred] = useState(stargazerService.getStarred().find(starredRepoId => starredRepoId === id));
+  const [isStarred, setIsStarred] = useState(false);
+
+  useEffect(() => {
+    // We can't set this in the initialState due to being a Server-side rendered page
+    setIsStarred(stargazerService.getStarred().find(starredRepoId => starredRepoId === id));
+  }, []);
 
   const handleStar = () => {
     stargazerService.toggleStarred(id); // TODO - Handle error with snackbar or something
