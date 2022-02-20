@@ -18,7 +18,9 @@ The React APP consists of a server-side rendered webpage, with prefetching on th
 ### *Explore - /explore*
 This tab has a prefetching solution, so if you were to [go to this page](http://localhost:8443/explore) you will get the server-side rendered components with all the data that it needs to hydrate.
 
-It lists the most popular repositories
+It lists the most popular repositories of the week, enables a language filter with some of the most relevant options, and also allows the user to "star" repositories (which interacts with localStorage). The starred repos can then be seen on the **My Starred** tab.
 
-### *Explore - /my-starred*
+### *My Starred - /my-starred*
 This tab does not have a prefetching solution, due to the starred repositories being saved in localStorage, so if you were to [go to this page](http://localhost:8443/my-starred) you will get the server-side rendered components, showing a loading indicator while starred repositories are being fetched.
+
+It lists the starred repositories with pagination, so the user can navigate through all of them freely, and also allows to "unstar" them.
