@@ -4,6 +4,7 @@ const { FaTimesCircle } = require('react-icons/fa');
 
 const { useState } = React;
 
+// TODO - Could generalize some functionalities and styling
 const Dropdown = ({ options, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
