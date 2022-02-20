@@ -31,16 +31,18 @@ class StargazerService {
     return (userData && userData.starred) || [];
   }
 
-  async fetchStarred() { // TODO - Add pagination
+  async fetchStarred(offset = 0, limit = 6) {
     try {
       let repositories = this.getStarred();
-      if (repositories.length !== 0) {
-        const { data } = await axios.get('/api/my-starred/repositories', { params: { repositories: repositories.join(',') } });
+      const total = repositories.length;
+      if (total !== 0) {
+        const { data } = await axios.get('/api/my-starred/repositories', { params: { repositories: repositories.join(','), offset, limit } });
         repositories = data;
       }
       return {
         error: null,
         data: repositories,
+        total,
       };
     } catch (error) {
       console.error('There was an error while trying to fetch starred repositories.', { error });

@@ -41,11 +41,12 @@ class GithubService {
   async getRepository({ id }) {
     const url = `/repositories/${id}`;
     const { data } = await this.restclient.get(url);
-    return this._transformRepository(data);
+    return this._transformRepository(data); // TODO - Could use "If-None-Match" header with Etag value
   }
 
-  async getRepositories({ repositories }) {
-    const data = await Promise.all(repositories.map(id => (
+  async getRepositories({ repositories, offset, endOffset }) {
+    const offsetRepositories = repositories.slice(offset, endOffset);
+    const data = await Promise.all(offsetRepositories.map(id => (
       this.getRepository({ id })
     )));
     return data;
