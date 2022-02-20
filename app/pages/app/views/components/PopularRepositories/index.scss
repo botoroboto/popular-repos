@@ -1,0 +1,67 @@
+@import './ExploreTab/index.scss';
+@import './MyStarredTab/index.scss';
+
+.popular-repositories {
+  padding: 24px 32px;
+
+  .title {
+    font-size: 24px;
+  }
+
+  .repository {
+    &-title {
+      font-weight: normal;
+      max-width: 60%;
+
+      .primary {
+        word-wrap: break-word;
+        margin-left: 4px;
+        font-weight: 600;
+        color: $github-highlight;
+        text-decoration: none;
+      }
+
+      .secondary {
+        word-wrap: break-word;
+        margin-right: 4px;
+        color: $github-highlight;
+        text-decoration: none;
+      }
+    }
+
+    &-star-button {
+      font-family: Segoe UI, sans-serif;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly;
+      cursor: pointer;
+      border: $github-light solid 1px;
+      border-radius: 8px;
+      width: 120px;
+      height: 40px;
+      background-color: white;
+
+      &-starred {
+        svg {
+          fill: $github-golden;
+        }
+      }
+
+      svg {
+        transition: fill 0.15s cubic-bezier(0.25, 0.76, 0.39, 0.97);
+      }
+
+      .star-counter {
+        margin-bottom: 1px;
+        font-size: 14px;
+      }
+    }
+
+    &-star-button:hover {
+      svg {
+        fill: $github-gold;
+      }
+    }
+  }
+}

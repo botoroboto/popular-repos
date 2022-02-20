@@ -1,0 +1,40 @@
+.app-container {
+  .navbar {
+    position: sticky;
+    top: 0;
+    background-color: $github-dark;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    height: 64px;
+    color: white;
+    z-index: 2;
+
+    .octicon {
+      margin-top: 6px;
+
+      svg:hover {
+        path {
+          fill: #d9dcdf;
+        }
+      }
+    }
+
+    .tabs {
+      display: flex;
+      flex-direction: row;
+      margin-left: 16px;
+
+      a {
+        margin: 6px 4px 0;
+        padding: 16px;
+        cursor: pointer;
+      }
+
+      .selected,
+      a:hover {
+        border-bottom: solid 4px $github-highlight;
+      }
+    }
+  }
+}
