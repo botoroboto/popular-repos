@@ -1,4 +1,5 @@
 // TODO - This folder could be moved to "services" folder if it no longer uses localStorage
+// TODO - All the logging made in this file should be supressed in production, or changed to a real logging tool
 const axios = require('axios');
 
 const INVALID_JSON = 'INVALID_JSON';

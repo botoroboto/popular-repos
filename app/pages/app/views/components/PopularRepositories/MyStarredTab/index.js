@@ -35,8 +35,8 @@ const MyStarredTab = ({ initialFetch }) => {
   useEffect(() => {
     if (!initialFetch || !Array.isArray(initialFetch.data)) {
       fetchItems(0, limit);
-      setIsFirstRender(false);
     }
+    setIsFirstRender(false);
   }, []);
 
   useEffect(() => {

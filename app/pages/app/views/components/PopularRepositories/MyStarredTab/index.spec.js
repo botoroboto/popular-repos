@@ -1,5 +1,5 @@
 const React = require('react');
-const { render, screen } = require('@testing-library/react');
+const { render, screen, fireEvent } = require('@testing-library/react');
 
 const { MyStarredTab } = require('.');
 const { StargazerContext } = require('../../../../contexts/stargazer');
@@ -10,6 +10,7 @@ jest.mock('moment', () => () => ({
 }));
 
 describe('MyStarredTab component', () => {
+  const limit = 6;
   let someRepo;
   let baseProps;
   const defaultStargazerService = {
@@ -112,5 +113,39 @@ describe('MyStarredTab component', () => {
     screen.getByText('Updated a few seconds ago (mocked)');
     screen.getByText(someRepo.language);
     expect(mockFetchStarred).not.toHaveBeenCalled();
+  });
+
+  test('should be able to paginate through data', async () => {
+    const someOtherRepos = [
+      { id: 1 },
+      { id: 2 },
+      { id: 3 },
+      { id: 4 },
+      { id: 5 },
+      { id: 6 },
+    ];
+    baseProps.initialFetch.data = someOtherRepos;
+    baseProps.initialFetch.total = 7;
+    const mockFetchStarred = jest.fn().mockImplementation(() => ({ error: null, data: [someRepo], total: 7 }));
+    const stargazerService = {
+      getStarred: jest.fn().mockImplementation(() => []),
+      fetchStarred: mockFetchStarred,
+      toggleStarred: jest.fn().mockImplementation(() => []),
+    };
+    render(<MyStarredTab {...baseProps} />, { wrapper: Contextualized({ stargazerContext: { stargazerService } }) });
+
+    screen.getByText(/My Starred repositories/);
+    // Should not show loading because data has been prefetched
+    expect(screen.queryByText(/Loading/)).toBeNull();
+    expect(mockFetchStarred).not.toHaveBeenCalled();
+
+    fireEvent.click(screen.getByRole('button', { name: '2' }));
+    await screen.findByText(someRepo.owner_name);
+    expect(mockFetchStarred).toHaveBeenCalledWith(limit, limit);
+    screen.getByText(someRepo.repo_name);
+    screen.getByText(`Star ${someRepo.star_count}`);
+    screen.getByText(someRepo.description);
+    screen.getByText('Updated a few seconds ago (mocked)');
+    screen.getByText(someRepo.language);
   });
 });

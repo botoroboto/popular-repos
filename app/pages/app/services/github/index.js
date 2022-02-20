@@ -41,7 +41,7 @@ class GithubService {
   async getRepository({ id }) {
     const url = `/repositories/${id}`;
     const { data } = await this.restclient.get(url);
-    return this._transformRepository(data); // TODO - Could use "If-None-Match" header with Etag value
+    return this._transformRepository(data); // TODO - Could use "If-None-Match" header with Etag value to cache this request
   }
 
   async getRepositories({ repositories, offset, endOffset }) {
