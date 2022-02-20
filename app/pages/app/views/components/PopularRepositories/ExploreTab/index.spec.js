@@ -3,6 +3,7 @@ const nock = require('nock');
 const { render, screen } = require('@testing-library/react');
 
 const { ExploreTab } = require('.');
+const { StargazerContext } = require('../../../../contexts/stargazer');
 
 const baseURL = 'http://localhost/api';
 
@@ -14,6 +15,18 @@ jest.mock('moment', () => () => ({
 describe('ExploreTab component', () => {
   let someRepo;
   let baseProps;
+
+  const defaultStargazerService = {
+    getStarred: jest.fn().mockImplementation(() => []),
+    fetchStarred: jest.fn().mockImplementation(() => []),
+    toggleStarred: jest.fn().mockImplementation(() => []),
+  };
+
+  const Contextualized = ({ stargazerContext } = {}) => ({ children }) => (
+    <StargazerContext.Provider value={stargazerContext || { stargazerService: defaultStargazerService }}>
+      {children}
+    </StargazerContext.Provider>
+  );
 
   beforeEach(() => {
     nock.cleanAll();
@@ -40,7 +53,7 @@ describe('ExploreTab component', () => {
       .get('/popular-repos/search')
       .once()
       .reply(200, [someRepo]);
-    render(<ExploreTab {...baseProps} />);
+    render(<ExploreTab {...baseProps} />, { wrapper: Contextualized() });
 
     screen.getByText(/Showing the most popular/);
     screen.getByText(/Loading/);
@@ -62,7 +75,7 @@ describe('ExploreTab component', () => {
       .get('/popular-repos/search')
       .once()
       .reply(400, { message: 'some error' });
-    render(<ExploreTab {...baseProps} />);
+    render(<ExploreTab {...baseProps} />, { wrapper: Contextualized() });
 
     screen.getByText(/Showing the most popular/);
     await screen.findByText(/Whoops! Error/);
@@ -77,7 +90,7 @@ describe('ExploreTab component', () => {
       .get('/popular-repos/search')
       .once()
       .reply(200, [someRepo]);
-    render(<ExploreTab {...baseProps} />);
+    render(<ExploreTab {...baseProps} />, { wrapper: Contextualized() });
 
     screen.getByText(/Showing the most popular/);
     await screen.findByText(someRepo.owner_name);
@@ -88,7 +101,7 @@ describe('ExploreTab component', () => {
     baseProps.initialFetch = {
       data: [],
     };
-    render(<ExploreTab {...baseProps} />);
+    render(<ExploreTab {...baseProps} />, { wrapper: Contextualized() });
 
     screen.getByText(/Showing the most popular/);
     screen.getByText(/We could not find any results/);

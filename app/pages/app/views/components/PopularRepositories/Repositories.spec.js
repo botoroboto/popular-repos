@@ -2,6 +2,7 @@ const React = require('react');
 const { render, screen } = require('@testing-library/react');
 
 const { Repositories } = require('./Repositories');
+const { StargazerContext } = require('../../../contexts/stargazer');
 
 jest.mock('moment', () => () => ({
   ...jest.requireActual('moment'),
@@ -10,6 +11,17 @@ jest.mock('moment', () => () => ({
 
 describe('Repositories component', () => {
   let repositories;
+  const defaultStargazerService = {
+    getStarred: jest.fn().mockImplementation(() => []),
+    fetchStarred: jest.fn().mockImplementation(() => []),
+    toggleStarred: jest.fn().mockImplementation(() => []),
+  };
+
+  const Contextualized = ({ stargazerContext } = {}) => ({ children }) => (
+    <StargazerContext.Provider value={stargazerContext || { stargazerService: defaultStargazerService }}>
+      {children}
+    </StargazerContext.Provider>
+  );
 
   beforeEach(() => {
     repositories = [{
@@ -27,7 +39,7 @@ describe('Repositories component', () => {
 
   test('should render RepositoryCard', () => {
     const someRepo = repositories[0];
-    render(<Repositories repositories={repositories} />);
+    render(<Repositories repositories={repositories} />, { wrapper: Contextualized() });
 
     screen.getByText(someRepo.owner_name);
     screen.getByText(someRepo.repo_name);
@@ -39,7 +51,7 @@ describe('Repositories component', () => {
 
   test('should render expected message if no repositories are passed', () => {
     repositories = [];
-    render(<Repositories repositories={repositories} />);
+    render(<Repositories repositories={repositories} />, { wrapper: Contextualized() });
 
     screen.getByText(/We could not find any results/);
   });
