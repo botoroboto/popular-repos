@@ -7,6 +7,7 @@ const { Dropdown } = require('../../../../../../components/Dropdown');
 const { useEffect, useState } = React;
 
 const ExploreTab = ({ initialFetch }) => {
+  // TODO - If Github were to expose an accepted languages endpoint, we could consume so as to not hardcode this
   const [languageOptions] = useState([
     { value: 'c', label: 'C' },
     { value: 'cpp', label: 'C++' },
